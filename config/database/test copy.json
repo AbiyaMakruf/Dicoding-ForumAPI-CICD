@@ -1,8 +1,8 @@
 // Rename nama file menjadi test.json dan sesuaikan value user dan password
 {
-  "user": "developer",
+  "user": "dicodingacademy",
   "password": "",
-  "host": "localhost",
+  "host": "forumapi.cq7ztlpnmlve.ap-southeast-1.rds.amazonaws.com",
   "port": 5432,
   "database": "forumapi_test"
 }
