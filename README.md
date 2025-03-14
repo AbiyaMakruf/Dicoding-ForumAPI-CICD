@@ -1,6 +1,6 @@
 # Proyek Akhir: Menjadi Back-End Developer Expert dengan JavaScript
 ## Penilaian Proyek
-Proyek ini berhasil mendapatkan bintang ?/5 pada submission dicoding course Menjadi Back-End Developer Expert dengan JavaScript.
+Proyek ini berhasil mendapatkan bintang 3/5 pada submission dicoding course Menjadi Back-End Developer Expert dengan JavaScript.
 
 ![Penilaian Proyek](README/penilaian_proyek.png)
 
@@ -9,8 +9,11 @@ Kriteria tambahan yang saya kerjakan sehingga mendapatkan nilai terbaik:
 2. 
 
 Kriteria tambahan yang tidak saya kerjakan:
-1. 
-2. 
+1. Menyelesaikan kriteria opsional menyukai komentar
+2. Menyelesaikan kriteria opsional submission sebelumnya yaitu balasan komentar
+3. Menerapkan functional test (Hapi server test) untuk resource thread dan comment
+4. Menerapkan 100% Test Coverage
+5. Menuliskan kode dengan bersih alias mematuhi style guide yang Anda tetapkan
 
 # 📌 Forum API
 
@@ -189,6 +192,80 @@ Koleksi Postman tersedia di folder ``:
 - **Jest** 🧪 (Unit & Integration Testing)
 - **JWT** 🔐 (Authentication)
 - **Node-PG-Migrate** 📦 (Migration Tool)
+
+## Setup AWS Infrastructure for ForumAPI
+
+### 1. Create Security Group
+Create a security group named **ForumAPI** and modify the inbound rules to allow traffic on the following ports:
+- **Port 3000**: Application access
+- **Port 5000**: API access
+- **Port 22**: SSH access
+
+### 2. Create EC2 Instance
+- Launch an EC2 instance using the security group **ForumAPI**.
+
+### 3. Create RDS Instance
+- Create an RDS instance with the following credentials:
+  - **Username**: dicodingacademy
+  - **Password**: supersecret
+
+### 4. Access RDS from EC2
+1. Install PostgreSQL client on EC2:
+   ```sh
+   sudo apt update && sudo apt install -y postgresql-client
+   ```
+2. Connect to RDS from EC2:
+   ```sh
+   psql --host=forumapi.cq7ztlpnmlve.ap-southeast-1.rds.amazonaws.com --username=dicodingacademy -d postgres
+   ```
+3. Create databases:
+   ```sql
+   CREATE DATABASE forumapi;
+   CREATE DATABASE forumapi_test;
+   ```
+
+### 5. Install Node.js
+1. Install Node.js and npm:
+   ```sh
+   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+   sudo apt-get install -y nodejs
+   sudo apt install npm
+   ```
+
+### 6. Install PM2
+1. Install PM2 globally:
+   ```sh
+   sudo npm install pm2 -g
+   ```
+
+### 7. Clone Repository & Install Dependencies
+1. Clone the project repository:
+   ```sh
+   git clone https://github.com/AbiyaMakruf/Dicoding-ForumAPI-CICD.git
+   ```
+2. Navigate to the project directory and install dependencies:
+   ```sh
+   cd Dicoding-ForumAPI-CICD
+   npm install
+   ```
+3. Configure environment variables:
+   ```sh
+   nano .env  # Copy contents from .env.example
+   ```
+4. Update database configuration:
+   ```sh
+   nano config/database/test.json  # Copy contents from test.copy.json
+   ```
+
+### 8. Set Up DNS & SSL
+1. Set hostname:
+   ```sh
+   curl -X POST -H "Content-type: application/json" -d '{ "ip": "13.212.247.22" }' "https://sub.dcdg.xyz/dns/records"
+   ```
+2. Install SSL certificate:
+   ```sh
+   sudo certbot --nginx -d rare-bars-rescue-slowly.a276.dcdg.xyz -d www.rare-bars-rescue-slowly.a276.dcdg.xyz
+   ```
 
 📌 **Selamat Coding!** 😃🔥
 
